@@ -56,7 +56,7 @@ const calculate = () => {
     if (state.operator === '/' && state.secondNum === '0') {
         state.displayValue = 'Error: Div by 0';
         updateDisplay();
-        return resetCalculator();
+        // return resetCalculator();
     }
 
     const result = operate[state.operator](parseFloat(state.firstNum), parseFloat(state.secondNum));
@@ -108,3 +108,17 @@ keys.addEventListener('click', (event) => {
 
     inputNumber(value);
 })
+
+window.addEventListener('keydown', (event) => {
+    const { key } = event;
+    if (key) event.preventDefault();
+
+    if (key >= '0' && key <= '9') return inputNumber(key);
+    if (key === '.') return inputDecimal(key);
+    if (key === '=' || key === 'Enter') return calculate();
+    if (key === 'Backspace') return deletedLastChar();
+    if (key === 'Escape') return resetCalculator();
+
+    const validOperators = ['+', '-', '*', '/'];
+    if (validOperators.includes(key)) return handleOperator(key);
+});
