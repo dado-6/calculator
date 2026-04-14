@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/scripts.js" defer></script>
+</head>
+
+<body>
+    <main class="calculator">
+        <h1>Calculator</h1>
+
+        <input type="text" id="display" class="calculator-screen" value="0" readonly aria-live="polite">
+
+        <div class="calculator-keys">
+            <button class="key-clear" value="all-clear">AC</button>
+            <button class="key-delete" value="all-clear">Del</button>
+            <button class="key-sign" value="all-clear">+/-</button>
+            <button class="key-operator" value="/" aria-label="divide">&divide;</button>
+
+            <button class="key-number" value="7">7</button>
+            <button class="key-number" value="8">8</button>
+            <button class="key-number" value="9">9</button>
+            <button class="key-operator" value="*" aria-label="multiply">&times;</button>
+            
+            <button class="key-number" value="4">4</button>
+            <button class="key-number" value="5">5</button>
+            <button class="key-number" value="6">6</button>
+            <button class="key-operator" value="-" aria-label="subtract">-</button>
+            
+            <button class="key-number" value="1">1</button>
+            <button class="key-number" value="2">2</button>
+            <button class="key-number" value="3">3</button>
+            <button class="key-operator" value="+" aria-label="add">+</button>
+
+            <button class="key-number" value="0">0</button>
+            <button class="key-decimal" value=".">.</button>
+            <button class="key-equal" value="=" aria-label="equals">=</button>
+        </div>
+    </main>
+</body>
+
+</html>
