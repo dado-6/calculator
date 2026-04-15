@@ -16,7 +16,14 @@ const operate = {
 };
 
 const updateDisplay = () => {
-    display.value = state.displayValue;
+    let output = state.displayValue;
+    if (!output.includes('Error')) {
+        if (output.length > 9) {
+            const num = parseFloat(output);
+            output = num.toExponential(4);
+        }
+    }
+    display.value = output;
 };
 
 const inputNumber = (num) => {
