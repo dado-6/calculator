@@ -3,6 +3,7 @@ const state = {
     secondNum: '',
     operator: null,
     displayValue: '0',
+    waitingForNewValue: false,
 };
 
 const display = document.querySelector('.calculator-screen');
@@ -27,29 +28,42 @@ const updateDisplay = () => {
 };
 
 const inputNumber = (num) => {
-    if (state.operator && state.firstNum !== '') {
-        if (state.displayValue === '0' && num === '0') return;
-
-        state.secondNum += num;
-        state.displayValue = state.secondNum.replace(/^0+/, '') || '0';
-    } else {
-        if (state.displayValue === '0' && num === '0') return;
-
-        state.firstNum += num;
-        state.displayValue = state.firstNum.replace(/^0+/, '') || '0';
-        if (state.firstNum === '0') state.firstNum = '';
+    if (state.waitingForNewValue) {
+        state.firstNum = num;
+        state.displayValue = num;
+        state.waitingForNewValue = false;
+        return updateDisplay();
     }
+
+    let currentNum = (state.operator && state.firstNum) ? 'secondNum' : 'firstNum';
+
+    if (state[currentNum] === '0') {
+        state[currentNum] = num;
+    } else {
+        state[currentNum] += num;
+    }
+
+    state.displayValue = state[currentNum];
     updateDisplay();
 };
 
 const inputDecimal = (dot) => {
-    let currentNum = (state.operator) ? 'secondNum' : 'firstNum';
-
-    if (!state[currentNum].includes(dot)) {
-        state[currentNum] += dot;
-        stated.displayValue = state[currentNum];
-        updateDisplay();
+    if (state.waitingForNewValue) {
+        state.firstNum = '0';
+        state.displayValue = state.firstNum;
+        state.waitingForNewValue = false;
+        return updateDisplay();
     }
+
+    let currentNum = (state.operator) ? 'secondNum' : 'firstNum';
+    if (state[currentNum] === '') {
+        state[currentNum] = '0.';
+    } else if (!state[currentNum].includes(dot)) {
+        state[currentNum] += dot;
+    }
+
+    state.displayValue = state[currentNum];
+    updateDisplay();
 };
 
 const handleOperator = (nextOperator) => {
@@ -63,9 +77,12 @@ const calculate = () => {
     if (!state.operator || state.secondNum === '') return;
 
     if (state.operator === '/' && state.secondNum === '0') {
-        state.displayValue = 'Error: Div by 0';
-        updateDisplay();
-        // return resetCalculator();
+        state.displayValue = 'Error: Div 0';
+        state.firstNum = '';
+        state.secondNum = '';
+        state.operator = null;
+        state.waitingForNewValue = true;
+        return updateDisplay();
     }
 
     const result = operate[state.operator](parseFloat(state.firstNum), parseFloat(state.secondNum));
@@ -114,7 +131,7 @@ keys.addEventListener('click', (event) => {
     if (target.classList.contains('key-sign')) return toggleSign();
     if (target.classList.contains('key-delete')) return deletedLastChar();
     if (target.classList.contains('key-equal')) return calculate();
-if (target.classList.contains('key-random')) return randomizeTheme();
+    if (target.classList.contains('key-random')) return randomizeTheme();
 
     inputNumber(value);
 })
@@ -134,7 +151,7 @@ window.addEventListener('keydown', (event) => {
     if (validOperators.includes(key)) return handleOperator(key);
 });
 
-const themeToggleBtn =  document.querySelector('.theme-toggle');
+const themeToggleBtn = document.querySelector('.theme-toggle');
 themeToggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
