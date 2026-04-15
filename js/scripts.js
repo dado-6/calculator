@@ -136,7 +136,7 @@ keys.addEventListener('click', (event) => {
     inputNumber(value);
 })
 
-window.addEventListener('keydown', (event) => {
+display.addEventListener('keydown', (event) => {
     const { key } = event;
     if (key) event.preventDefault();
 
