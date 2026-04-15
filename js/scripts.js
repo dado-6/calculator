@@ -131,3 +131,8 @@ window.addEventListener('keydown', (event) => {
     const validOperators = ['+', '-', '*', '/'];
     if (validOperators.includes(key)) return handleOperator(key);
 });
+
+const themeToggleBtn =  document.querySelector('.theme-toggle');
+themeToggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
