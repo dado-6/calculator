@@ -154,6 +154,7 @@ window.addEventListener('keydown', (event) => {
 const themeToggleBtn = document.querySelector('.theme-toggle');
 themeToggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
+    document.body.removeAttribute('style');
 });
 
 const getRandomColor = () => {
@@ -164,9 +165,9 @@ const getRandomColor = () => {
 };
 
 const randomizeTheme = () => {
-    const root = document.documentElement;
-    root.style.setProperty('--text-main', getRandomColor());
-    root.style.setProperty('--btn-default', getRandomColor());
-    root.style.setProperty('--btn-text', getRandomColor());
-    root.style.setProperty('--btn-operator', getRandomColor());
+    const body = document.body;
+    body.style.setProperty('--text-main', getRandomColor());
+    body.style.setProperty('--btn-default', getRandomColor());
+    body.style.setProperty('--btn-text', getRandomColor());
+    body.style.setProperty('--btn-operator', getRandomColor());
 };
