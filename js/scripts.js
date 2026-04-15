@@ -114,6 +114,7 @@ keys.addEventListener('click', (event) => {
     if (target.classList.contains('key-sign')) return toggleSign();
     if (target.classList.contains('key-delete')) return deletedLastChar();
     if (target.classList.contains('key-equal')) return calculate();
+if (target.classList.contains('key-random')) return randomizeTheme();
 
     inputNumber(value);
 })
@@ -127,6 +128,7 @@ window.addEventListener('keydown', (event) => {
     if (key === '=' || key === 'Enter') return calculate();
     if (key === 'Backspace') return deletedLastChar();
     if (key === 'Escape') return resetCalculator();
+    if (key.toLowerCase() === 'x') return randomizeTheme();
 
     const validOperators = ['+', '-', '*', '/'];
     if (validOperators.includes(key)) return handleOperator(key);
@@ -136,3 +138,18 @@ const themeToggleBtn =  document.querySelector('.theme-toggle');
 themeToggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
+
+const getRandomColor = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+};
+
+const randomizeTheme = () => {
+    const root = document.documentElement;
+    root.style.setProperty('--text-main', getRandomColor());
+    root.style.setProperty('--btn-default', getRandomColor());
+    root.style.setProperty('--btn-text', getRandomColor());
+    root.style.setProperty('--btn-operator', getRandomColor());
+};

@@ -1,9 +1,9 @@
 :root {
-    --bg-body: #f4f4f9;
+    --bg-body: #7a7a7a;
     --bg-calculator: #333333;
     --bg-screen: #222222;
     --text-main: #ffffff;
-    --btn-default: #eeeeee;
+    --btn-default: #dfdfdf;
     --btn-text: #434343;
     --btn-operator: #ff9500;
 }
@@ -100,6 +100,8 @@ button:hover {
     color: white;
 }
 
-.key-number[value="0"] {
-    grid-column: span 2;
+.curious-text {
+    text-align: center;
+    margin-top: 15px;
+    color: var(--text-main);
 }
