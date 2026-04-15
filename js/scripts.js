@@ -28,8 +28,10 @@ const updateDisplay = () => {
 
 const inputNumber = (num) => {
     if (state.operator && state.firstNum !== '') {
+        if (state.displayValue === '0' && num === '0') return;
+
         state.secondNum += num;
-        state.displayValue = state.secondNum;
+        state.displayValue = state.secondNum.replace(/^0+/, '') || '0';
     } else {
         if (state.displayValue === '0' && num === '0') return;
 
